@@ -1,0 +1,16 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "prettier/prettier": ["error", { "singleQuote": true }]
+  },
+  "globals": {
+    "use": true
+  }
+}
