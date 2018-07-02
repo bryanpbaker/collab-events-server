@@ -8,6 +8,7 @@
   "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "rules": {
     "class-methods-use-this": "off",
+    "consistent-return": "off",
     "prettier/prettier": ["error", { "singleQuote": true }]
   },
   "globals": {
