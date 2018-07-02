@@ -33,6 +33,25 @@ class UserController {
       };
     }
   }
+
+  /**
+   * generate a jwt for a user based on login creds
+   * @param {Object} context - destructure request and auth
+   */
+  async login({ request, auth }) {
+    const { username, password } = request.body;
+    const user = await User.findBy('username', username);
+    const { type, token } = await auth.attempt(
+      user.$attributes.email,
+      password
+    );
+
+    return {
+      success: true,
+      type,
+      token
+    };
+  }
 }
 
 module.exports = UserController;

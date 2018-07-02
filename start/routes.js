@@ -16,5 +16,7 @@ const Route = use('Route');
 Route.get('/', ({ request }) => ({ greeting: 'Collab Events API!' }));
 
 Route.group(() => {
+  // USERS
   Route.post('users', 'UserController.store');
+  Route.post('users/login', 'UserController.login');
 }).prefix('api/v1');
