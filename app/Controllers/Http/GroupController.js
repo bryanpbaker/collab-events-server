@@ -17,20 +17,33 @@ class GroupController {
    * Create/save a new group.
    * POST groups
    */
-  async store({ request, auth }) {
+  async store({ request, response, auth }) {
     const { name, description, members } = request.body;
-    const newGroup = await Group.create({
-      name,
-      description,
-      creator: auth.user.id
-    });
-    const groupMembers = await newGroup.members().attach(members);
 
-    // TODO: clean up members etc.
-    return {
-      ...newGroup.$attributes,
-      groupMembers
-    };
+    // make sure a name is provided
+    if (name) {
+      const newGroup = await Group.create({
+        name,
+        description,
+        creator: auth.user.id
+      });
+      // attach the group's members
+      const groupMembers = await newGroup
+        .members()
+        .attach([auth.user.id, ...members]);
+
+      // send back the group with the members
+      return {
+        ...newGroup.$attributes,
+        groupMembers
+      };
+    }
+
+    // if a name isn't provided, send a 400
+    response.status(400).json({
+      success: false,
+      message: 'Please provide a name for your group'
+    });
   }
 
   /**
