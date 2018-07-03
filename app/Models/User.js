@@ -35,9 +35,9 @@ class User extends Model {
   }
 
   groupsAsMember() {
-    return this.belongsToMany('App/Models/Group', 'member').pivotModel(
-      'App/Models/UserGroup'
-    );
+    return this.belongsToMany('App/Models/Group', 'member', 'group_id')
+      .pivotTable('user_group')
+      .withTimeStamps();
   }
 }
 

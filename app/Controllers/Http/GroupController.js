@@ -9,21 +9,24 @@ class GroupController {
    * Show a list of all groups created by the current user
    * GET groups
    */
-  async index({ request, response, auth }) {
-    return Group.query().where('creator', auth.user.$attributes.id);
+  async index({ auth }) {
+    return Group.query().where('creator', auth.user.id);
   }
 
   /**
    * Create/save a new group.
    * POST groups
    */
-  async store({ request, response, auth }) {
-    const groupData = request.only(['name', 'description']);
-
-    return Group.create({
-      ...groupData,
-      creator: auth.user.$attributes.id
+  async store({ request, auth }) {
+    const { name, description, members } = request.body;
+    const newGroup = await Group.create({
+      name,
+      description,
+      creator: auth.user.id
     });
+    const groupMembers = await newGroup.members().attach(members);
+
+    return Group.find(newGroup.id);
   }
 
   /**
