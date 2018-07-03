@@ -24,12 +24,13 @@ class GroupController {
       description,
       creator: auth.user.id
     });
+    const groupMembers = await newGroup.members().attach(members);
 
-    // TODO - can i get the members too, without a bunch of queries?
-
-    await newGroup.members().attach(members);
-
-    return Group.find(newGroup.id);
+    // TODO: clean up members etc.
+    return {
+      ...newGroup.$attributes,
+      groupMembers
+    };
   }
 
   /**
