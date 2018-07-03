@@ -10,9 +10,7 @@ class GroupController {
    * GET groups
    */
   async index({ request, response, auth }) {
-    const user = await User.find(auth.user.$attributes.id);
-
-    return user.groups().fetch();
+    return Group.query().where('creator', auth.user.$attributes.id);
   }
 
   /**
