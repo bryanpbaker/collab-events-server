@@ -6,6 +6,10 @@ class Group extends Model {
       .pivotTable('user_group')
       .withTimestamps();
   }
+
+  events() {
+    return this.hasMany('App/Models/Event');
+  }
 }
 
 module.exports = Group;

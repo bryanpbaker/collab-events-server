@@ -23,4 +23,7 @@ Route.group(() => {
   // Group
   Route.get('groups', 'GroupController.index').middleware('auth');
   Route.post('groups', 'GroupController.store').middleware('auth');
+
+  // Event
+  Route.post('events', 'EventController.store').middleware('auth');
 }).prefix('api/v1');
