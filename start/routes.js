@@ -26,4 +26,5 @@ Route.group(() => {
 
   // Event
   Route.post('events', 'EventController.store').middleware('auth');
+  Route.get('events', 'EventController.index').middleware('auth');
 }).prefix('api/v1');

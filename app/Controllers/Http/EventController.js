@@ -8,7 +8,9 @@ class EventController {
    * Show a list of all events.
    * GET events
    */
-  async index({ request, response, view }) {}
+  async index({ request }) {
+    return Event.query().where('group_id', request.headers().groupid);
+  }
 
   /**
    * Create/save a new event.
