@@ -19,7 +19,6 @@ class GroupController {
    */
   async store({ request, response, auth }) {
     const { name, description, members } = request.body;
-
     // make sure a name is provided
     if (name) {
       const newGroup = await Group.create({
@@ -31,14 +30,12 @@ class GroupController {
       const groupMembers = await newGroup
         .members()
         .attach([auth.user.id, ...members]);
-
       // send back the group with the members
       return {
         ...newGroup.$attributes,
         groupMembers
       };
     }
-
     // if a name isn't provided, send a 400
     response.status(400).json({
       success: false,

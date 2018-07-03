@@ -35,9 +35,15 @@ class User extends Model {
   }
 
   groupsAsMember() {
-    return this.belongsToMany('App/Models/Group', 'member', 'group_id')
-      .pivotTable('user_group')
-      .withTimeStamps();
+    return this.belongsToMany(
+      'App/Models/Group',
+      'member',
+      'group_id'
+    ).pivotTable('user_group');
+  }
+
+  members() {
+    return this.hasMany('App/Models/Message', 'id', 'sender');
   }
 }
 
