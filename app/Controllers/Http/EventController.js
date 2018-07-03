@@ -17,10 +17,19 @@ class EventController {
   async store({ request, response, auth }) {
     const { groupId, name, description } = request.body;
 
-    return Event.create({
-      group_id: groupId,
-      name,
-      description
+    if (name) {
+      return Event.create({
+        group_id: groupId,
+        creator: auth.user.id,
+        name,
+        description
+      });
+    }
+
+    // if a name isn't provided, send a 400
+    response.status(400).json({
+      success: false,
+      message: 'Please provide a name for your event'
     });
   }
 

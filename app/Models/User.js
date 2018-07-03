@@ -42,6 +42,10 @@ class User extends Model {
     ).pivotTable('user_group');
   }
 
+  events() {
+    return this.hasMany('App/Models/Event', 'id', 'creator');
+  }
+
   messages() {
     return this.hasMany('App/Models/Message', 'id', 'sender');
   }
