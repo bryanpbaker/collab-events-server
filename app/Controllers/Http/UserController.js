@@ -40,19 +40,24 @@ class UserController {
    */
   async login({ request, response, auth }) {
     const { username, password } = request.body;
-    const user = await User.findBy('username', username);
+    console.log(request.body);
+    try {
+      const user = await User.findBy('username', username);
 
-    if (user) {
-      const { type, token } = await auth.attempt(
-        user.$attributes.email,
-        password
-      );
+      if (user) {
+        const { type, token } = await auth.attempt(
+          user.$attributes.email,
+          password
+        );
 
-      return {
-        success: true,
-        type,
-        token
-      };
+        return {
+          success: true,
+          type,
+          token
+        };
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 }
