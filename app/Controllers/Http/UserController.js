@@ -40,7 +40,6 @@ class UserController {
    */
   async login({ request, response, auth }) {
     const { username, password } = request.body;
-    console.log(request.body);
     try {
       const user = await User.findBy('username', username);
 
@@ -53,11 +52,21 @@ class UserController {
         return {
           success: true,
           type,
-          token
+          token,
+          user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            name: user.name,
+            picture: user.picture
+          }
         };
       }
     } catch (error) {
-      console.log(error);
+      return {
+        success: false,
+        error
+      };
     }
   }
 }
