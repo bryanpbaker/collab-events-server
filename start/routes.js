@@ -19,6 +19,7 @@ Route.group(() => {
   // User
   Route.post('users', 'UserController.store');
   Route.post('users/login', 'UserController.login');
+  Route.get('users/authorize', 'UserController.authorize').middleware('auth');
 
   // Group
   Route.get('groups', 'GroupController.index').middleware('auth');

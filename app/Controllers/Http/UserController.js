@@ -69,6 +69,16 @@ class UserController {
       };
     }
   }
+
+  /**
+   * allow a client to authorize a User based on a
+   * JWT Authorization header
+   */
+  async authorize() {
+    return {
+      success: true
+    };
+  }
 }
 
 module.exports = UserController;
