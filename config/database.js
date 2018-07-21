@@ -1,7 +1,5 @@
-'use strict'
-
-const Env = use('Env')
-const Helpers = use('Helpers')
+const Env = use('Env');
+const Helpers = use('Helpers');
 
 module.exports = {
   /*
@@ -29,7 +27,9 @@ module.exports = {
   sqlite: {
     client: 'sqlite3',
     connection: {
-      filename: Helpers.databasePath(`${Env.get('DB_DATABASE', 'development')}.sqlite`)
+      filename: Helpers.databasePath(
+        `${Env.get('DB_DATABASE', 'development')}.sqlite`
+      )
     },
     useNullAsDefault: true,
     debug: Env.get('DB_DEBUG', false)
@@ -78,4 +78,4 @@ module.exports = {
     },
     debug: Env.get('DB_DEBUG', false)
   }
-}
+};

@@ -14,3 +14,18 @@
 const Route = use('Route');
 
 Route.get('/', ({ request }) => ({ greeting: 'Collab Events API!' }));
+
+Route.group(() => {
+  // User
+  Route.post('users', 'UserController.store');
+  Route.post('users/login', 'UserController.login');
+  Route.get('users/authorize', 'UserController.authorize').middleware('auth');
+
+  // Group
+  Route.get('groups', 'GroupController.index').middleware('auth');
+  Route.post('groups', 'GroupController.store').middleware('auth');
+
+  // Event
+  Route.post('events', 'EventController.store').middleware('auth');
+  Route.get('events', 'EventController.index').middleware('auth');
+}).prefix('api/v1');
